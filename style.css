@@ -14,29 +14,35 @@ h1 {
   margin: 10px;
   height: 100px;
   width: 200px;
-  cursor: pointer;
+  opacity: 0.5;
 }
 .rojo {
   background-color: red;
   margin: 10px;
   height: 100px;
   width: 200px;
-  cursor: pointer;
+  opacity: 0.5;
 }
 .amarillo {
   background-color: yellow;
   margin: 10px;
   height: 100px;
   width: 200px;
-  cursor: pointer;
+  opacity: 0.5;
 }
 .azul {
   background-color: blue;
   margin: 10px;
   height: 100px;
   width: 200px;
-  cursor: pointer;
+  opacity: 0.5;
 }
 .btn {
   text-align: center;
+}
+.resaltar-color {
+  opacity: 1;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
