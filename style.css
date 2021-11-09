@@ -1,4 +1,17 @@
+* {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+  transition: all 0.2s linear;
+}
+
 h1 {
+  margin: 20px;
   text-align: center;
 }
 .contenedor-1 {
@@ -11,38 +24,60 @@ h1 {
 }
 .verde {
   background-color: green;
-  margin: 10px;
-  height: 100px;
+  margin: 5px;
+  height: 150px;
   width: 200px;
   opacity: 0.5;
+  border-radius: 100% 0 0 0;
 }
 .rojo {
   background-color: red;
-  margin: 10px;
-  height: 100px;
+  margin: 5px;
+  height: 150px;
   width: 200px;
   opacity: 0.5;
+  border-radius: 0 100% 0 0;
 }
 .amarillo {
   background-color: yellow;
-  margin: 10px;
-  height: 100px;
+  margin: 5px;
+  height: 150px;
   width: 200px;
   opacity: 0.5;
+  border-radius: 0 0 0 100%;
 }
 .azul {
   background-color: blue;
-  margin: 10px;
-  height: 100px;
+  margin: 5px;
+  height: 150px;
   width: 200px;
   opacity: 0.5;
+  border-radius: 0 0 100%;
 }
 .btn {
   text-align: center;
+}
+.btn-jugar {
+  margin-top: 1rem;
+  background: green;
+  color: #fff;
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  outline: 2px solid green;
+  outline-offset: 2px;
+}
+.btn-jugar:hover {
+  background-color: black;
 }
 .resaltar-color {
   opacity: 1;
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.oculto {
+  display: none;
 }
