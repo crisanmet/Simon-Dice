@@ -32,7 +32,8 @@ const iniciarJuego = () => {
     }, retraso);
   });
 
-  const retrasoJugador = (ronda + 1) * 1000;
+  const retrasoJugador = (ronda + 2) * 1000;
+  console.log(retrasoJugador);
 
   setTimeout(() => {
     desbloquearUsuario();
@@ -75,11 +76,11 @@ const iluminarCuadro = (e) => {
   e.classList.add("resaltar-color");
   setTimeout(() => {
     e.classList.remove("resaltar-color");
-  }, 500);
+  }, 200);
 };
 
 const desbloquearUsuario = () => {
-  mostrarMensaje($mensaje, "¿Podes repetirla?");
+  mostrarMensaje($mensaje, "¿Podés repetirla?");
   $cuadros.forEach((cuadro) => {
     cuadro.onclick = manejarJuegoUsuario;
     cuadro.classList.add("cursor-pointer");
@@ -95,7 +96,8 @@ const bloquearUsuario = () => {
 const reiniciarJuego = () => {
   compararMejorRonda(mejorRonda);
   toggleMostrarOcultar($btnJugar);
-  toggleMostrarOcultar($mensaje);
+  mostrarMensaje($mensaje, "Perdiste...Para volver a jugar toca Play");
+  //toggleMostrarOcultar($mensaje);
   secuenciaMaquina = [];
   secuenciaMaquinaAComparar = [];
   secuenciaJugador = [];
