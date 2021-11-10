@@ -14,8 +14,53 @@ h1 {
   margin: 20px;
   text-align: center;
 }
+.animacion-cambiar-color {
+  -webkit-animation-name: cambiarColor;
+  animation-name: cambiarColor;
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+@keyframes cambiarColor {
+  0% {
+    color: blue;
+  }
+  25% {
+    color: green;
+  }
+  50% {
+    color: red;
+  }
+  75% {
+    color: yellow;
+  }
+  100% {
+    color: blue;
+  }
+}
+@-webkit-keyframes cambiarColor {
+  0% {
+    color: blue;
+  }
+  25% {
+    color: green;
+  }
+  50% {
+    color: red;
+  }
+  75% {
+    color: yellow;
+  }
+  100% {
+    color: blue;
+  }
+}
 .cabezera {
+  display: flex;
   text-align: center;
+  justify-content: center;
+  gap: 40px;
   font-weight: bold;
   margin: 10px;
 }
@@ -34,6 +79,7 @@ h1 {
   width: 200px;
   opacity: 0.5;
   border-radius: 100% 0 0 0;
+  border: solid 2px black;
 }
 .rojo {
   background-color: red;
@@ -42,6 +88,7 @@ h1 {
   width: 200px;
   opacity: 0.5;
   border-radius: 0 100% 0 0;
+  border: solid 2px black;
 }
 .amarillo {
   background-color: yellow;
@@ -50,6 +97,7 @@ h1 {
   width: 200px;
   opacity: 0.5;
   border-radius: 0 0 0 100%;
+  border: solid 2px black;
 }
 .azul {
   background-color: blue;
@@ -58,6 +106,7 @@ h1 {
   width: 200px;
   opacity: 0.5;
   border-radius: 0 0 100%;
+  border: solid 2px black;
 }
 .btn {
   text-align: center;
@@ -85,4 +134,9 @@ h1 {
 }
 .oculto {
   display: none;
+}
+.turno {
+  margin: 10px;
+  font-style: italic;
+  font-weight: 700;
 }
