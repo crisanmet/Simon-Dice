@@ -2,6 +2,8 @@ const d = document;
 const $btnJugar = d.querySelector(".btn-jugar");
 const $cuadros = d.querySelectorAll(".cuadro");
 const $mensaje = d.querySelector(".turno");
+const $ronda = d.querySelector(".ronda");
+const $mejorRonda = d.querySelector(".mejor-ronda");
 
 let secuenciaMaquinaAComparar = [];
 let secuenciaMaquina = [];
@@ -11,13 +13,13 @@ let mejorRonda = JSON.parse(localStorage.getItem("mejor-ronda")) || 0;
 
 $btnJugar.addEventListener("click", () => {
   iniciarJuego();
-  toggleBtn($btnJugar);
+  toggleMostrarOcultar($btnJugar);
+  $ronda.textContent = `Ronda: 1`;
 });
 
 const iniciarJuego = () => {
-  toggleBtn($mensaje);
-  $mensaje.innerHTML = `<p>Turno de la maquinola...</p>`;
   bloquearUsuario();
+  mostrarMensaje($mensaje, "Turno de la maquinola...");
 
   const $cuadroMaquina = obtenerCuadroAleatorioMaquina();
   secuenciaMaquinaAComparar.push($cuadroMaquina.dataset.color);
@@ -35,8 +37,8 @@ const iniciarJuego = () => {
   setTimeout(() => {
     desbloquearUsuario();
   }, retrasoJugador);
-  ronda++;
-  mejorRonda = ronda;
+
+  manejarNumeroRonda();
 };
 const obtenerCuadroAleatorioMaquina = () => {
   const cuadrosColores = ["azul", "verde", "rojo", "amarillo"];
@@ -47,7 +49,6 @@ const obtenerCuadroAleatorioMaquina = () => {
 };
 
 const manejarJuegoUsuario = (e) => {
-  $mensaje.innerHTML = `<p>¿Podes repetirla?</p>`;
   const $cuadro = e.target;
   iluminarCuadro($cuadro);
   secuenciaJugador.push($cuadro.dataset.color);
@@ -78,6 +79,7 @@ const iluminarCuadro = (e) => {
 };
 
 const desbloquearUsuario = () => {
+  mostrarMensaje($mensaje, "¿Podes repetirla?");
   $cuadros.forEach((cuadro) => {
     cuadro.onclick = manejarJuegoUsuario;
     cuadro.classList.add("cursor-pointer");
@@ -92,20 +94,36 @@ const bloquearUsuario = () => {
 
 const reiniciarJuego = () => {
   compararMejorRonda(mejorRonda);
-  toggleBtn($btnJugar);
+  toggleMostrarOcultar($btnJugar);
+  toggleMostrarOcultar($mensaje);
   secuenciaMaquina = [];
   secuenciaMaquinaAComparar = [];
   secuenciaJugador = [];
   bloquearUsuario();
 };
 
+const mostrarMensaje = (elemento, mensaje) => {
+  elemento.innerHTML = `<p>${mensaje} </p>`;
+};
+
+const manejarNumeroRonda = () => {
+  ronda++;
+  $ronda.textContent = `Ronda: ${ronda}`;
+  mejorRonda = ronda - 1;
+};
+
 const compararMejorRonda = (puntaje) => {
   const puntajeLocalStorage = JSON.parse(localStorage.getItem("mejor-ronda"));
   if (puntaje > puntajeLocalStorage) {
     localStorage.setItem("mejor-ronda", JSON.stringify(mejorRonda));
+    $mejorRonda.textContent = `Best Score: ${mejorRonda}`;
   }
 };
 
-const toggleBtn = (btn) => {
-  btn.classList.toggle("oculto");
+const toggleMostrarOcultar = (elemento) => {
+  elemento.classList.toggle("oculto");
 };
+
+d.addEventListener("DOMContentLoaded", () => {
+  $mejorRonda.textContent = `Best Score: ${mejorRonda}`;
+});
