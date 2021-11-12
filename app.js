@@ -1,11 +1,9 @@
-const d = document;
-const $btnJugar = d.querySelector(".btn-jugar");
-const $cuadros = d.querySelectorAll(".cuadro");
-const $mensaje = d.querySelector(".turno");
-const $ronda = d.querySelector(".ronda");
-const $mejorRonda = d.querySelector(".mejor-ronda");
+const $btnJugar = document.querySelector(".btn-jugar");
+const $cuadros = document.querySelectorAll(".cuadro");
+const $mensaje = document.querySelector(".turno");
+const $ronda = document.querySelector(".ronda");
+const $mejorRonda = document.querySelector(".mejor-ronda");
 
-let secuenciaMaquinaAComparar = [];
 let secuenciaMaquina = [];
 let secuenciaJugador = [];
 let ronda = 0;
@@ -22,7 +20,6 @@ const iniciarJuego = () => {
   mostrarMensaje($mensaje, "Turno de la maquinola...");
 
   const $cuadroMaquina = obtenerCuadroAleatorioMaquina();
-  secuenciaMaquinaAComparar.push($cuadroMaquina.dataset.color);
   secuenciaMaquina.push($cuadroMaquina);
 
   secuenciaMaquina.forEach((cuadro, i) => {
@@ -32,8 +29,7 @@ const iniciarJuego = () => {
     }, retraso);
   });
 
-  const retrasoJugador = (ronda + 2) * 1000;
-  console.log(retrasoJugador);
+  const retrasoJugador = (secuenciaMaquina.length + 1) * 1000;
 
   setTimeout(() => {
     desbloquearUsuario();
@@ -42,34 +38,27 @@ const iniciarJuego = () => {
   manejarNumeroRonda();
 };
 const obtenerCuadroAleatorioMaquina = () => {
-  const cuadrosColores = ["azul", "verde", "rojo", "amarillo"];
-  const colorAleatorio = Math.floor(Math.random() * cuadrosColores.length);
-
-  //const cuadroElegido = Math.floor(Math.random() * $cuadros.length);
-  return $cuadros[colorAleatorio];
+  const cuadroElegido = Math.floor(Math.random() * $cuadros.length);
+  return $cuadros[cuadroElegido];
 };
 
 const manejarJuegoUsuario = (e) => {
   const $cuadro = e.target;
   iluminarCuadro($cuadro);
-  secuenciaJugador.push($cuadro.dataset.color);
+  secuenciaJugador.push($cuadro);
 
-  const esperarJuegoJugador =
-    secuenciaMaquinaAComparar.length === secuenciaJugador.length;
+  const cuadroMaquina = secuenciaMaquina[secuenciaJugador.length - 1];
 
-  if (esperarJuegoJugador) {
-    if (
-      JSON.stringify(secuenciaMaquinaAComparar) ===
-      JSON.stringify(secuenciaJugador)
-    ) {
-      secuenciaJugador = [];
-      bloquearUsuario();
-      setTimeout(() => {
-        iniciarJuego();
-      }, 1000);
-    } else {
-      reiniciarJuego();
-    }
+  if ($cuadro.dataset.color !== cuadroMaquina.dataset.color) {
+    reiniciarJuego();
+    return;
+  }
+  if (secuenciaMaquina.length === secuenciaJugador.length) {
+    secuenciaJugador = [];
+    bloquearUsuario();
+    setTimeout(() => {
+      iniciarJuego();
+    }, 1000);
   }
 };
 const iluminarCuadro = (e) => {
@@ -97,9 +86,9 @@ const reiniciarJuego = () => {
   compararMejorRonda(mejorRonda);
   toggleMostrarOcultar($btnJugar);
   mostrarMensaje($mensaje, "Perdiste...Para volver a jugar toca Play");
-  //toggleMostrarOcultar($mensaje);
+
   secuenciaMaquina = [];
-  secuenciaMaquinaAComparar = [];
+  ronda = 0;
   secuenciaJugador = [];
   bloquearUsuario();
 };
@@ -126,6 +115,6 @@ const toggleMostrarOcultar = (elemento) => {
   elemento.classList.toggle("oculto");
 };
 
-d.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   $mejorRonda.textContent = `Best Score: ${mejorRonda}`;
 });
